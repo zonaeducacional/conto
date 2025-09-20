@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Histórias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        body.modal-open {
+            overflow: hidden;
+        }
+        /* Estilos para o conteúdo da história dentro do modal */
+        .story-content {
+            line-height: 1.7;
+            color: #333;
+            background-color: #fff; /* Garante fundo branco no modo claro */
+        }
+        .story-content h1 {
+            font-size: 2.25em;
+            font-weight: 900;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .story-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .story-content p {
+            margin-bottom: 1.25em;
+            text-align: justify;
+            font-size: 1.1em;
+            /* As duas regras abaixo forçam a remoção de estilos indesejados que podem vir da cópia de texto */
+            background-color: transparent !important; 
+            color: inherit !important;
+        }
+        /* Ajustes para o modo escuro no conteúdo do modal */
+        .dark .story-content {
+            color: #e2e8f0;
+            background-color: #2d3748; /* Garante fundo cinza escuro no modo escuro */
+        }
+        .dark .story-content h1 {
+            color: #a0aec0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 antialiased">
+
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-8">
+            
+            <!-- Conteúdo Principal -->
+            <div class="lg:col-span-8 xl:col-span-9">
+                <header class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-black text-cyan-600 dark:text-cyan-400">A Sinfonia Silenciosa da Engrenagem</h1>
+                    <p class="mt-4 text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Uma coleção de contos para inspirar e educar. Clique em uma capa para começar a leitura.</p>
+                </header>
+        
+                <main id="storybook-grid-local" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- Os cartões dos livros locais serão inseridos aqui via JavaScript -->
+                </main>
+            </div>
+
+            <!-- Barra Lateral -->
+            <aside class="lg:col-span-4 xl:col-span-3 mt-12 lg:mt-0">
+                <div class="sticky top-8 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-bold text-center mb-6 text-purple-600 dark:text-purple-400">Coleção Adicional</h2>
+                    <div id="storybook-list-external" class="space-y-4">
+                        <!-- A lista de botões para os livros externos será inserida aqui via JavaScript -->
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+
+        <footer class="text-center mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-gray-500 dark:text-gray-400">Criado com ❤️ para educadores.</p>
+        </footer>
+    </div>
+
+    <!-- Modal para exibir a História -->
+    <div id="storybook-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full h-full max-w-screen-lg flex flex-col transform scale-95 transition-transform duration-300">
+            <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
+                <h3 id="modal-title" class="text-xl font-bold text-gray-800 dark:text-gray-200">Leitura da História</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white text-3xl font-light leading-none">&times;</button>
+            </div>
+            <!-- Conteúdo local será injetado aqui -->
+            <div id="modal-content" class="flex-grow p-6 overflow-y-auto story-content"></div>
+            <!-- Iframe para conteúdo externo -->
+            <div id="modal-iframe-container" class="flex-grow p-1 overflow-hidden hidden">
+                <iframe id="storybook-iframe" src="about:blank" class="w-full h-full border-0" title="Conteúdo da história externa"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dados das histórias (oculto) -->
+    <div id="story-data" class="hidden">
+        <div id="content-historia1"><h1>Capítulo I: O Tique-Taque da Consciência</h1><img src="https://dev05.nekoweb.org/imgconto/img1.jpg" alt="Ilustração do Capítulo I"> <p>Amadeu chegou à Escola Municipal da Grande Engrenagem como um relojoeiro aprendiz que adentra pela primeira vez a barriga de um carrilhão centenário. Era seu primeiro ano como professor dos anos finais do ensino fundamental, e um assombro reverente o dominava. A instituição, para ele, era um mecanismo de precisão monumental, uma Grande Engrenagem de incontáveis dentes e molas, polida pelo tempo e pelo hábito. Havia uma beleza austera em seu funcionamento, em sua liturgia. O sino, a alma de bronze da Grande Engrenagem, não tocava: ela pulsava a sua música sagrada de ordem e prontidão, e a cada pulsação, a escola inteira se movia em uma coreografia perfeitamente sincronizada.</p><p>Ao primeiro toque, às sete e trinta da manhã, os portões de ferro rangiam como o dar corda em um relógio colossal. Os alunos, em filas retilíneas, marchavam para dentro com suas fardas, uniformizando os corpos jovens e imaturos. Amadeu, de seu posto no pátio, observava-os com uma curiosidade que beirava a angústia. Eles não pareciam crianças, mas frágeis frascos de vidro, de uma transparência quase espectral. Suas cabeças eram pequenos recipientes vazios, com delicadas tampas de rolha. Eles se sentavam em suas carteiras, e as tampas se abriam com um "pop" suave e uníssono, aguardando o líquido precioso do conhecimento.</p><p>Os professores, Amadeu incluso, eram os Dispensadores. Cada um portava um regador de metal galvanizado, do qual vertiam o Conteúdo, um líquido cinzento, viscoso e morno. Tinha o cheiro de poeira de giz ancestral e papel velho. Escorria para dentro dos frascos-cabeça dos alunos, enchendo-os lentamente, dia após dia, até a marcação exata designada pelo Plano Anual de Ensino. Uma vez que o nível era atingido, a tampa se fechava, o frasco era etiquetado com uma nota e o processo se repetia no dia seguinte com uma nova camada do mesmo líquido cinzento.</p><p>Amadeu sentia um grão de areia em sua própria maquinaria interna. Algo rangia em sua percepção. Ele olhava para o líquido em seu regador – História, dizia o rótulo – e via nele a mesma tonalidade cinza da Matemática de seu colega Getúlio, ou da Geografia de Dona Elvira. Era tudo o mesmo caldo, a mesma substância insípida projetada para preencher, não para nutrir.</p><p>Os outros professores não pareciam notar. Moviam-se com a fluidez engraxada de pistões e bielas que executam a mesma função há décadas. Seus rostos haviam adquirido uma tonalidade metálica, fosca, uma impassibilidade de autômatos. Conversavam na Sala de Descompressão – um nome de uma ironia cruel, pois a sala era apenas uma engrenagem menor, onde o mecanismo principal permitia que suas peças descansassem antes de retomar o movimento perpétuo.</p><p>"O frasco 4B está com um vazamento", dizia Getúlio, um homem cujo bigode parecia desenhado a carvão para esconder a ausência de um sorriso. "Não segurou o Conteúdo de ontem. Tive que repetir a dosagem sobre Porcentagem."</p><p>"Aumente a viscosidade", aconselhava Dona Elvira, cujos cabelos eram um coque tão apertado que parecia uma pequena engrenagem aparafusada em sua nuca. "Uma pitada de cálculos mecânicos e memorização de fórmulas costuma resolver”. Torna o Conteúdo mais denso, mais difícil de evaporar." Ela era a peça mais antiga e confiável da “Grande Engrenagem”. Seus movimentos eram tão precisos que se podia acertar o relógio por seus passos no corredor.</p><p>Amadeu tentou intervir. "Mas... eles não questionam? Não perguntam qual a aplicação prática da porcentagem, ou o que ela significa para as pessoas de verdade, além das fórmulas?"</p><p>Um silêncio oleoso se instalou na sala. Os olhares que se voltaram para ele não eram hostis, but confusos, como se uma peça da máquina tivesse emitido um som para o qual não fora projetada.</p><p>"Questionar não preenche o frasco, Amadeu", disse Elvira, com a paciência de um manual de instruções. "Questionar cria bolhas. E bolhas ocupam o espaço do Conteúdo. Nosso trabalho é encher. O Plano é claro. A Medida é precisa. O sino toca. Nós nos movemos. É simples. É eficiente."</p><p>Amadeu sentiu o grão de areia se transformar em uma pedra. Ele olhou para suas próprias mãos, esperando vê-las transformadas em metal frio, e sentiu um calafrio. Ele era parte da máquina. Seu tique-taque interno, o de sua curiosidade, de sua dúvida, estava perigosamente fora de sincronia com a grande pulsação da Escola-Engrenagem. E naquela dissonância, naquela arritmia solitária, ele começou a despertar.</p></div>
+        <div id="content-historia2"><h1>Capítulo II: O Grito Silencioso</h1><img src="https://dev05.nekoweb.org/imgconto/cap2-2.png" alt="Ilustração do Capítulo II"> <p>Dias se transformaram em semanas, e o tique-taque dissonante na consciência de Amadeu tornou-se um martelar constante. Ele continuava a despejar o líquido cinzento, mas suas mãos tremiam, e seu olhar não se fixava no nível do frasco, mas nos resquícios de luz que ainda cintilavam dentro de alguns deles, sob a camada opaca do Conteúdo. Ele começou a notar as diferenças sutis. Alguns frascos eram mais porosos, outros tinham fissuras quase invisíveis. Um em particular, o frasco 7C, pertencente a um menino chamado Lino, parecia vibrar com uma energia contida.</p><p>Lino era um frasco peculiar. Enquanto os outros permaneciam imóveis, ele se inclinava levemente para a luz que entrava pela janela alta da sala. Sua rolha, por vezes, parecia se deslocar um milímetro, como se uma pressão interna buscasse escape. Durante a aula de História sobre as Grandes Navegações – um Conteúdo particularmente denso e cinzento, focado em datas, tratados e rotas – Amadeu viu algo extraordinário.</p><p>Enquanto ele despejava a narrativa oficial sobre o "descobrimento", notou que dentro do frasco de Lino, o líquido cinzento se agitava. Pequenas bolhas subiam à superfície, não bolhas de ar, mas de cor. Um azul profundo de oceano desconhecido, um verde de florestas intocadas, um vermelho de perigo e coragem. Eram as perguntas não formuladas, as emoções não verbalizadas, a imaginação que se recusava a ser dissolvida.</p><p>Amadeu sentiu seu próprio coração-relógio falhar uma batida. Ele parou, o regador a pairar no ar. Todos os outros frascos estavam quietos, o líquido cinzento neles plácido como um pântano. Mas Lino... Lino estava a sonhar com o mar. A pressão dentro do frasco 7C aumentou. A pequena rolha tremeu. Amadeu viu-se diante de uma escolha. Poderia ignorar, continuar a despejar o Conteúdo até que as cores se apagassem, a agitação cessasse e a ordem fosse restaurada. Era o que Elvira faria. Era o que a Grande Engrenagem exigia.</p><p>Mas o martelo em sua consciência bateu com mais força. Em um impulso que desafiava toda a lógica da máquina, Amadeu baixou o regador. Inclinou-se sobre a carteira de Lino e, em vez de falar sobre o Tratado de Tordesilhas, sussurrou: "Como era o cheiro do mar, Lino? E o som das velas estufadas pelo vento? Que monstros se escondiam nas profundezas?"</p><p>O efeito foi sísmico. As cores dentro do frasco de Lino explodiram em um turbilhão. A rolha não aguentou. Com um "POP!" agudo, que cortou o silêncio monótono da sala, ela foi projetada para o teto. E do gargalo do frasco não saiu um som, mas uma lufada de ar salgado que se espalhou pela sala, carregando consigo o cheiro de maresia e aventura.</p><p>Por um instante, a Grande Engrenagem pareceu parar. Os outros frascos-cabeça se viraram na direção de Lino. Em suas superfícies de vidro, o reflexo das cores rodopiantes de Lino brilhou fugazmente. Getúlio, na sala ao lado, deve ter sentido a vibração, pois o seu despejar de Porcentagens foi interrompido por uma fração de segundo. Foi um ato de sabotagem silenciosa. Um grito mudo que ecoou por todos os corredores metálicos. Amadeu não havia enchido o frasco. Ele o havia aberto. E naquele ato, ele ouviu um som que ninguém na Grande Engrenagem jamais ouvira antes: o som de um frasco que se recusava a ser apenas um frasco.</p></div>
+        <div id="content-historia3"><h1>Capítulo III: A Semente da Subversão</h1><img src="https://dev05.nekoweb.org/imgconto/cap3-3.png" alt="Ilustração do Capítulo III"><p>O eco do frasco aberto de Lino reverberou nos dias que se seguiram, não em som, mas em silêncio. Um silêncio diferente. Não era mais a quietude passiva da recepção, mas a tensão expectante de quem aguarda algo. Amadeu foi convocado à Sala de Descompressão. Dona Elvira, com a precisão de um mecanismo de ajuste, olhou-o por cima de seus óculos de aros de metal.</p><p>"Houve uma anomalia no frasco 7C, Amadeu", disse ela, sua voz sem inflexão. "Uma despressurização não programada. O nível do Conteúdo baixou. Isso é ineficiente. Causa atrasos no cronograma."</p><p>"Ele estava... extravasando", respondeu Amadeu, escolhendo a palavra com cuidado. "Achei que aliviar a pressão seria o mais prudente para evitar uma fratura completa."</p><p>Getúlio polia uma pequena engrenagem com um pano, sem erguer os olhos. "Fraturas são raras se a dosagem for correta e a viscosidade adequada. O problema não está no frasco, mas na aplicação."</p><p>Amadeu sentiu-se como uma peça defeituosa sob escrutínio. Mas algo havia mudado nele. O medo estava a ser substituído por uma curiosidade desafiadora. Ele não era mais apenas um grão de areia; era uma semente. E a semente havia sido plantada.</p><p>No dia seguinte, em sua aula, Amadeu tomou uma decisão. Em vez de pegar seu regador cinzento de História, ele trouxe para a sala um objeto estranho, um item que não pertencia à Grande Engrenagem: uma pequena bússola de latão, antiga e gasta. Ele a colocou em sua mesa. Os frascos-cabeça inclinaram-se em sua direção. O objeto brilhava sob a luz fria, um sol em miniatura.</p><p>"Hoje", disse Amadeu, sua voz um pouco mais firme, "não vamos falar sobre as rotas que os outros traçaram. Vamos falar sobre como encontrar nosso próprio caminho."</p><p>Ele não despejou Conteúdo. Ele fez uma pergunta. "Para que serve isto?"</p><p>Um silêncio tenso. As rolhas tremeram. Dentro dos frascos, o líquido cinzento permaneceu imóvel. Perguntas não eram parte do Plano. Mas Amadeu esperou. Ele girou a bússola, e a agulha vermelha dançou, tremendo antes de apontar para o norte magnético da escola, onde ficava a sala da diretoria.</p><p>Foi Lino quem respondeu. Ou melhor, quem reagiu. Dentro de seu frasco, uma imagem se formou, não com cores, mas com o próprio líquido cinzento, que se moldava e se transformava. Apareceu a imagem de um barco perdido em um mar de névoa. A imagem era instável, mas clara em sua intenção. "Para não se perder", o pensamento pareceu emanar do frasco.</p><p>Amadeu sorriu. Foi a primeira vez que um sorriso genuíno apareceu na sala. "Exatamente, Lino. Para não se perder."</p><p>Ele então caminhou pela sala, mostrando a bússola para cada frasco. Ele não pedia uma resposta verbal, mas os convidava a sentir o peso do objeto, a ver o brilho do metal, a observar a dança misteriosa da agulha. Em cada frasco que ele passava, uma pequena ondulação perturbava a superfície do líquido cinzento. Uma pequena bolha de curiosidade subia. Eram minúsculos atos de rebelião, invisíveis para os olhos de Dona Elvira, mas Amadeu os via. Ele não estava mais enchendo frascos. Estava a plantar sementes. E no solo estéril e compactado do Conteúdo, contra todas as probabilidades, algo começava a germinar. Uma pequena e silenciosa insurreição estava em andamento.</p></div>
+        <div id="content-historia4"><h1>Capítulo IV: A Rebelião das Cores</h1><img src="https://dev05.nekoweb.org/imgconto/cap4-4.png" alt="Ilustração do Capítulo IV"><p>A manhã seguinte raiou cinzenta como todas as outras, mas na sala de Amadeu, algo era diferente. As sementes plantadas no dia anterior haviam criado raízes invisíveis durante a noite. Quando os alunos entraram, seus frascos-cabeça pareciam menos transparentes, como se uma névoa interna turvasse o vidro. Era a névoa da expectativa.</p><p>Amadeu abandonou completamente o regador. Ele o deixou num canto da sala, onde começou a acumular uma fina camada de poeira, como uma relíquia de uma era esquecida. Em seu lugar, ele trouxe uma caixa de madeira. Ele a abriu, revelando não um objeto, mas vários: um punhado de terra escura e úmida, algumas pedras de rio, lisas e coloridas, uma pena de pássaro azul e um frasco de perfume antigo que ainda continha um leve aroma de jasmim.</p><p>Ele não fez perguntas. Simplesmente distribuiu os objetos. A um frasco deu uma pedra, a outro, um pouco de terra, e assim por diante. O toque dos objetos contra o vidro dos frascos produziu uma série de sons delicados, uma melodia dissonante que quebrou a monotonia do tique-taque da escola. Era a música da matéria, do concreto, do sensorial.</p><p>A reação foi imediata e avassaladora. O frasco que recebeu a terra viu seu líquido cinzento transformar-se num marrom fértil, de onde brotavam imagens de árvores e raízes. O frasco com a pedra do rio encheu-se de um azul-esverdeado, e o som de água corrente pareceu ecoar de dentro dele. A pena de pássaro fez com que o líquido se tornasse leve e etéreo, tingido de azul-celeste, com imagens de nuvens e voos altos. O perfume de jasmim dissolveu o cinzento em um branco luminoso, espalhando uma fragrância de memória e saudade.</p><p>A sala de Amadeu explodiu em uma sinfonia silenciosa de cores. Cada frasco tornou-se um universo único, um caleidoscópio de experiências e sensações. O Conteúdo cinzento não foi eliminado, mas transformado, servindo como tela para a expressão individual. As rolhas, antes selos de contenção, agora saltitavam sobre os gargalos, permitindo que as cores e os aromas transbordassem e se misturassem no ar, criando novas tonalidades e fragrâncias.</p><p>A rebelião não podia mais ser contida. A porta da sala estava entreaberta, e um filete de luz dourada escapou para o corredor metálico, pintando uma faixa de sol no chão polido. Getúlio, passando por ali a caminho da Sala de Descompressão, parou. Seus sensores ópticos registraram a anomalia. Ele espiou pela fresta. O que viu desafiou sua programação. Uma sala de aula que não era cinzenta. Frascos que não estavam a ser preenchidos, mas que transbordavam. Um professor que não era um Dispensador, mas um... catalisador.</p><p>Ele recuou, confuso, como se tivesse visto um fantasma na máquina. A informação correu por seus circuitos, um erro de sistema. Ele se apressou para a sala dos professores, mas as palavras não saíam. Como descrever cores para quem só conhece o cinzento? Como explicar o cheiro de jasmim a mecanismos que só reconhecem o cheiro de óleo e metal?</p><p>A notícia chegou a Dona Elvira não por palavras, mas por uma perturbação no ritmo da Grande Engrenagem. O sino tocou para o intervalo, mas na sala de Amadeu, ninguém se moveu. Os frascos estavam absortos demais em seus próprios mundos. O corredor, geralmente preenchido pela marcha sincronizada dos alunos, teve um vácuo. Um silêncio. Uma falha. A máquina estava, pela primeira vez, perdendo o seu ritmo.</p></div>
+        <div id="content-historia5"><h1>Capítulo V: O Jardineiro de Almas</h1><img src="https://dev05.nekoweb.org/imgconto/cap5-5.png" alt="Ilustração do Capítulo V"><p>A Rebelião das Cores foi o ponto de virada. Dona Elvira, a personificação da ordem e da eficiência, marchou até a sala de Amadeu. Sua figura, recortada contra a luz colorida que vazava para o corredor, parecia a de um general inspecionando uma frente de batalha insubordinada. Ela esperava encontrar o caos. E encontrou. Mas não era o caos da desordem, e sim o caos da criação.</p><p>Os frascos-cabeça não estavam mais em filas. Formavam pequenos círculos. Um grupo, em torno do frasco com a terra, estava a moldar o seu conteúdo em pequenas esculturas de barro. Outro, onde a pena azul fora a inspiração, desenhava no ar com rastros de luz. Lino, cujo frasco agora continha um oceano em miniatura, estava a ensinar outro frasco a criar ondas.</p><p>E Amadeu. Ele não estava no centro, a comandar. Estava ajoelhado no chão, conversando com um pequeno frasco tímido cujo conteúdo era de um cinzento quase inalterado, exceto por uma minúscula centelha prateada. Amadeu não estava a forçar a cor. Estava a cuidar da centelha, a protegê-la com as mãos em concha, a sussurrar-lhe palavras de encorajamento.</p><p>Dona Elvira parou no umbral da porta. Seus processadores tentavam analisar a cena. Os parâmetros eram claros: Nível de Conteúdo (insuficiente), Sincronia de Movimento (nula), Aderência ao Plano (inexistente). Segundo todas as métricas da Grande Engrenagem, aquilo era um fracasso absoluto. Um desastre. A sala deveria ser interditada, os frascos esvaziados e reformatados, e a peça defeituosa, Amadeu, removida.</p><p>Ela abriu a boca para dar a ordem, para restaurar a monotonia cinzenta. Mas então, o pequeno frasco com a centelha prateada olhou para ela. A centelha piscou. E pela primeira vez em décadas, Dona Elvira não viu um recipiente a ser preenchido. Ela viu um par de olhos. Olhos que não pediam, mas ofereciam. A centelha prateada era um reflexo de uma estrela distante, uma memória de algo que ela mesma, a peça mais antiga e fiel da máquina, havia esquecido.</p><p>Uma dissonância percorreu seu próprio mecanismo interno. Um rangido de engrenagens há muito imóveis. Ela olhou para as suas mãos metálicas. Elas foram projetadas para garantir a precisão, para apertar parafusos, para manter o sistema a funcionar. Mas, por um instante fugaz, ela se lembrou de um tempo em que mãos serviam para outra coisa. Para segurar, para cuidar, para moldar.</p><p>Ela não disse nada. A ordem morreu em seus lábios. Ela simplesmente deu meia-volta, seus passos no corredor um pouco menos precisos, um pouco menos rítmicos. O som não era mais o de um pistão, mas o de alguém que hesita. A não-ação de Dona Elvira foi o ato mais revolucionário de todos. Foi a permissão. O silêncio dela deu à rebelião de Amadeu o espaço para respirar, para crescer.</p><p>Amadeu entendeu. Ele não era um sabotador. Ele era um jardineiro. Um jardineiro de almas presas em frascos de vidro. E o Conteúdo cinzento não era o inimigo. Era apenas o solo. Um solo pobre, negligenciado, mas que, com cuidado, com luz e com a coragem de plantar sementes inesperadas, podia florescer em algo inimaginavelmente belo. Ele não estava mais apenas ensinando. Estava cultivando.</p></div>
+        <div id="content-historia6"><h1>Capítulo VI: O Despertar da Grande Engrenagem</h1><img src="https://dev05.nekoweb.org/imgconto/cap6-6.png" alt="Ilustração do Capítulo VI"><p>A transformação da sala de Amadeu, agora um oásis de cores e texturas em meio à monotonia metálica da escola, começou a atrair outros. Primeiro, foram os frascos de outras turmas, que espiavam pela porta com uma curiosidade temerosa. Depois, vieram os professores. Getúlio foi o primeiro. Ele entrou na sala, seu rosto uma máscara de perplexidade, e observou os frascos a colaborar em um grande mapa desenhado no chão, não com rotas comerciais, mas com rios de tinta azul e montanhas de argila.</p><p>"Não há... medida", gaguejou ele, olhando para a cena caótica e vibrante. "Como se avalia isto?"</p><p>Amadeu, que ajudava um pequeno grupo a construir uma ponte com palitos e barbante, olhou para ele e sorriu. "Não se mede, Getúlio. Observa-se. Participa-se. Sente-se." Ele estendeu a Getúlio um punhado de argila. "Ajude-nos a fazer uma montanha mais alta."</p><p>A mão metálica de Getúlio hesitou, mas depois, lentamente, ele aceitou a argila. A sensação fria e maleável em seus dedos de metal foi uma revelação. Ele começou a moldar, desajeitadamente a princípio, mas depois com um interesse crescente. A precisão de seus dedos, antes usada para calcular, agora servia para criar. Sua montanha não tinha a beleza orgânica das feitas pelos frascos, mas era matematicamente perfeita, cheia de ângulos e planos que adicionavam uma nova dimensão à paisagem.</p><p>Aos poucos, outros professores-autômatos foram atraídos. Um trouxe sementes e ajudou a criar um pequeno jardim num canto da sala. Outro, que antes ensinava a gramática rígida, começou a ajudar os frascos a escrever poemas nas paredes, com tintas feitas de bagas e carvão. A Sala de Descompressão esvaziou-se. A verdadeira descompressão, a verdadeira pausa no movimento perpétuo, estava a acontecer ali, naquela sala vibrante.</p><p>A Grande Engrenagem não parou de funcionar, mas o seu ritmo mudou. O tique-taque tornou-se menos um comando e mais uma pulsação, um baixo contínuo para a melodia improvisada que surgia. O sino ainda tocava, mas não mais para ditar o movimento, e sim para anunciar a possibilidade de uma nova criação.</p><p>A transformação culminou no dia em que Dona Elvira entrou na sala. Ela não veio inspecionar. Trazia nas mãos um pequeno carrilhão desmontado. Ela se sentou no chão, em meio aos professores e frascos, e, com a paciência de um mestre relojoeiro, começou a remontar o mecanismo, explicando a função de cada pequena mola, de cada dente de engrenagem. Ela não estava a despejar Conteúdo. Estava a partilhar a sua essência, a sua paixão pela beleza da ordem e da complexidade. Os frascos juntaram-se à sua volta, fascinados, ajudando a polir as peças, a encaixá-las. Juntos, eles fizeram o pequeno carrilhão funcionar. E quando ele tocou, não era a música sagrada da ordem, mas uma melodia nova, complexa e cheia de vida, criada pela colaboração de todas as peças.</p><p>Amadeu observou, afastando-se um pouco do grupo que se formava. Ele não era mais o centro. Sua ação havia sido o catalisador, a centelha que acendeu o fogo. Mas o fogo agora pertencia a todos. Ele não lhes dera respostas. Ele lhes devolvera o direito à pergunta. Ele não lhes oferecera um novo sistema, mas a dura e maravilhosa tarefa de construí-lo juntos.</p><p>A Escola Municipal da Grande Engrenagem não seria mais a mesma. Talvez se tornasse uma oficina. Talvez um ateliê. Talvez um laboratório. Talvez uma ágora. Provavelmente, um pouco de tudo isso. A luta não havia terminado; ela havia apenas começado. Haveria resistência, haveria tentativas de restaurar a velha ordem, de trazer de volta o líquido cinzento. Mas algo fundamental havia mudado: a consciência. Eles agora sabiam que eram parte de uma engrenagem, e, portanto, sabiam que podiam escolher ser outra coisa.</p><p>Olhando para seus colegas, não mais como peças, mas como companheiros de jornada, e para os alunos, não mais como frascos, mas como chamas vivas, Amadeu compreendeu a verdade final. A verdadeira educação não era sobre encher o vazio. Era sobre ter a coragem de encará-lo juntos, e então, com as mãos sujas de tinta, de terra e de vida, começar a construir algo novo a partir do maravilhoso e infinito caos. A sinfonia silenciosa havia terminado. A música barulhenta, desafinada e gloriosamente humana da aprendizagem estava apenas começando.</p></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const storybooks_local = [
+                { title: "Capítulo I: O Tique-Taque da Consciência", coverUrl: "https://dev05.nekoweb.org/imgconto/img1.jpg", contentId: "content-historia1", type: "local" },
+                { title: "Capítulo II: O Grito Silencioso", coverUrl: "https://dev05.nekoweb.org/imgconto/cap2-2.png", contentId: "content-historia2", type: "local" },
+                { title: "Capítulo III: A Semente da Subversão", coverUrl: "https://dev05.nekoweb.org/imgconto/cap3-3.png", contentId: "content-historia3", type: "local" },
+                { title: "Capítulo IV: A Rebelião das Cores", coverUrl: "https://dev05.nekoweb.org/imgconto/cap4-4.png", contentId: "content-historia4", type: "local" },
+                { title: "Capítulo V: O Jardineiro de Almas", coverUrl: "https://dev05.nekoweb.org/imgconto/cap5-5.png", contentId: "content-historia5", type: "local" },
+                { title: "Capítulo VI: O Despertar da Grande Engrenagem", coverUrl: "https://dev05.nekoweb.org/imgconto/cap6-6.png", contentId: "content-historia6", type: "local" }
+            ];
+
+            const storybooks_external = [
+                { title: "Capítulo I", url: "https://g.co/gemini/share/792f54f2a489", type: "external" },
+                { title: "Capítulo II", url: "https://g.co/gemini/share/0a3a42682733", type: "external" },
+                { title: "Capítulo III", url: "https://g.co/gemini/share/de54469a8d7c", type: "external" },
+                { title: "Capítulo IV", url: "https://g.co/gemini/share/dc2479cecb0e", type: "external" },
+                { title: "Capítulo V", url: "https://g.co/gemini/share/717ad173fe65", type: "external" },
+                { title: "Capítulo VI", url: "https://g.co/gemini/share/50d053a2d635", type: "external" }
+            ];
+
+            const gridLocal = document.getElementById('storybook-grid-local');
+            const listExternal = document.getElementById('storybook-list-external');
+            const modal = document.getElementById('storybook-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const modalIframeContainer = document.getElementById('modal-iframe-container');
+            const iframe = document.getElementById('storybook-iframe');
+            const closeModalBtn = document.getElementById('close-modal');
+
+            function openModal(book) {
+                modalTitle.textContent = book.title;
+                
+                if (book.type === 'local') {
+                    const contentSource = document.getElementById(book.contentId);
+                    if (contentSource) {
+                        modalContent.innerHTML = contentSource.innerHTML;
+                        modalContent.classList.remove('hidden');
+                        modalIframeContainer.classList.add('hidden');
+                    }
+                } else if (book.type === 'external') {
+                    iframe.src = book.url;
+                    modalIframeContainer.classList.remove('hidden');
+                    modalContent.classList.add('hidden');
+                }
+
+                document.body.classList.add('modal-open');
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modal.querySelector('div > div').classList.remove('scale-95');
+                }, 10);
+            }
+
+            function closeModal() {
+                modal.classList.add('opacity-0');
+                modal.querySelector('div > div').classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modalContent.innerHTML = '';
+                    iframe.src = 'about:blank';
+                    document.body.classList.remove('modal-open');
+                }, 300);
+            }
+
+            function createCard(book, grid) {
+                const card = document.createElement('div');
+                card.className = "group cursor-pointer bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-2xl";
+                
+                const coverImageUrl = book.coverUrl;
+
+                card.innerHTML = `
+                    <div class="relative">
+                        <img src="${coverImageUrl}" alt="Capa de ${book.title}" class="w-full h-80 object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                            <h2 class="text-xl font-bold text-white">${book.title}</h2>
+                            <p class="mt-1 text-sm text-white/80 opacity-0 group-hover:opacity-100 transform -translate-y-2 group-hover:translate-y-0 transition-all duration-300">Ler história &rarr;</p>
+                        </div>
+                    </div>
+                `;
+                card.addEventListener('click', () => openModal(book));
+                grid.appendChild(card);
+            }
+
+            // Popula as histórias locais como cartões
+            storybooks_local.forEach(book => createCard(book, gridLocal));
+            
+            // Popula as histórias externas como botões estilizados
+            const buttonColors = ['purple-400', 'purple-500', 'purple-600', 'purple-700', 'purple-800', 'purple-900'];
+            
+            storybooks_external.forEach((book, index) => {
+                const color = buttonColors[index % buttonColors.length];
+                const button = document.createElement('a');
+                button.href = "#";
+                
+                button.className = `group flex items-center justify-between gap-4 rounded-lg border border-${color} bg-${color} px-4 py-3 transition-colors hover:bg-transparent focus:outline-none focus:ring-2 focus:ring-${color} focus:ring-offset-2 dark:focus:ring-offset-gray-800`;
+
+                button.innerHTML = `
+                    <span class="font-medium text-white transition-colors group-hover:text-${color} dark:group-hover:text-${color}">
+                        Cap. ${index + 1}: ${book.title}
+                    </span>
+                    <span class="shrink-0 rounded-full border border-current bg-white p-2 text-${color}">
+                        <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </span>
+                `;
+
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal(book);
+                });
+
+                listExternal.appendChild(button);
+            });
+
+
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
